@@ -1,0 +1,25 @@
+{
+  "name": "hd-server-side",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "REDIS_STORE_URI=redis://localhost REDIS_STORE_SECRET=rediskey nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-klimovich/hd-server-side.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/e-klimovich/hd-server-side/issues"
+  },
+  "homepage": "https://github.com/e-klimovich/hd-server-side#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "nodemon": "^1.17.5"
+  }
+}
