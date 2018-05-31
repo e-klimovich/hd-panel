@@ -4,7 +4,11 @@ var router = express.Router();
 module.exports = (passport) => {
     // Render main login page
     router.get('/', (req, res) => {
-        res.send('This is login page');
+        res.render('login', {
+            head: {
+                title: 'Login page'
+            }
+        });
     });
 
     // Post request hendler for login
