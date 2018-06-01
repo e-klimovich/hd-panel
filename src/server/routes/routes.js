@@ -5,7 +5,7 @@ const router = express.Router();
 module.exports = (passport) => {
     // Render main login page
     router.get('/', (req, res) => {
-        res.render('login', {
+        res.render('template', {
             head: {
                 title: 'Login page'
             }

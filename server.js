@@ -20,6 +20,7 @@ const compiler = webpack(webpackConfig);
 
 // Connect to mongodb
 mongoose.connect(config.dbUrl)
+    .then(console.log('Connected to ' + config.dbUrl))
     .catch(e => console.log(e.message));
 
 // Engine settings
@@ -27,7 +28,9 @@ app.set('views', path.resolve(__dirname, './src/server/views'));
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(cookieParser());
 
 app.use(webpackDevMiddleware(compiler, {
@@ -41,7 +44,11 @@ app.use(webpackHotMiddleware(compiler));
 app.use(express.static(path.resolve(__dirname, 'build')));
 
 // Passport settings
-app.use(expressSession({secret: 'secretKey'}));
+app.use(expressSession({
+    secret: 'secretKey',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

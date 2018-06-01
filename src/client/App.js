@@ -1,10 +1,16 @@
-import React, { Component } from 'react'
-import { hot } from 'react-hot-loader'
+import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
+import { Switch, Route } from 'react-router-dom';
+
+import SignIn from './pages/SignIn'
+
 
 class App extends Component {
     render() {
         return(
-            <h1>Hello world!</h1>
+            <Switch>
+                <Route exact path='/' component={SignIn} />
+            </Switch>
         )
     }
 }
