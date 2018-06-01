@@ -1,4 +1,4 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -7,6 +7,7 @@ module.exports = {
     entry: {
         index: [
             'webpack-hot-middleware/client',
+            'babel-polyfill',
             './src/client/index.js'
         ]
     },
@@ -16,13 +17,14 @@ module.exports = {
         publicPath: '/'
     },
 
-    devtool: "cheap-module-eval-source-map",
+    devtool: 'cheap-module-eval-source-map',
 
     module: {
         rules: [
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
+                include: path.resolve(__dirname, './src/client'),
                 loader: 'babel-loader'
             },
             {
@@ -41,7 +43,6 @@ module.exports = {
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin({
             filename: 'style.css'
         })
