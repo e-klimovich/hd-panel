@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-const ejs = require('ejs');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
