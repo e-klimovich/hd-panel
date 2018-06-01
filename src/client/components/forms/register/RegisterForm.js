@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
+import Card from '../../../components/card/Crad'
 import Input from '../../inputs/Input'
+import Button from '../../../components/button/Button'
 
 
 export default class RegisterForm extends Component {
@@ -16,11 +18,15 @@ export default class RegisterForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.hendleSubmit}>
-                <Input name='username' />
-                <Input name='email' />
-                <Input type='password' name='password' />
-            </form>
+            <Card>
+                <h2>Register Form</h2>
+                <form onSubmit={this.hendleSubmit}>
+                    <Input name='username' />
+                    <Input name='email' />
+                    <Input type='password' name='password' />
+                    <Button type='submit' text='Register Now' />
+                </form>
+            </Card>
         )
     }
 }

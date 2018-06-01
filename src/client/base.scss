@@ -1,13 +1,33 @@
 * {
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
+}
+
+body {
+    font: {
+        family: 'sans-serif';
+        size: 16px;
+        weight: 400;
+    }
+    color: #212121;
+    background-color: #F5F7FA;
+}
+
+button {
+    outline: none;
+    border: 0;
+    background: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 .wrapper {
     display: flex;
     min-height: 100vh;
     width: 100%;
-    background-color: #F5F7FA;
 
     &_single-screen {
         align-items: center;
