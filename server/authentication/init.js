@@ -1,6 +1,5 @@
-const login = require('./login');
-//const signup = require('./signup');
-const User = require('../models/user.model');
+const login = require('./login')
+const User = require('../models/user.model')
 
 module.exports = (passport) => {
 
@@ -15,6 +14,5 @@ module.exports = (passport) => {
     });
 
     login(passport);
-    //signup(passport);
 
 }

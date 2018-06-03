@@ -1,49 +1,64 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const expressSession = require('express-session');
-const flash = require('connect-flash');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const passport = require('passport')
+const expressSession = require('express-session')
+const http = require('http')
 
-const config = require('./config');
-const webpackConfig = require('./webpack.config');
-const initPassport = require('./src/server/passport/init');
-const routes = require('./src/server/routes/routes')(passport);
+// webpack and hot reload
 
-const app = express();
-const compiler = webpack(webpackConfig);
+const webpack = require('webpack')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 
-// Connect to mongodb
-mongoose.connect(config.dbUrl)
-    .then(console.log('Connected to ' + config.dbUrl))
-    .catch(e => console.log(e.message));
+// ----
 
-// Engine settings
-app.set('views', path.resolve(__dirname, './src/server/views'));
+const config = require('./config')
+const webpackConfig = require('./webpack.config')
+const compiler = webpack(webpackConfig)
+const routes = require('./server/routes/routes')()
+const initPassport = require('./server/authentication/init')
+
+/**
+ * Connect to MongoDB
+ */
+mongoose.connect(config.db.url)
+    .catch(e => console.log(e.message))
+
+/**
+ * Express server settings
+ */
+const app = express()
+
+app.set('views', path.resolve(__dirname, './server/views'));
 app.set('view engine', 'ejs');
+app.use(express.static(path.resolve(__dirname, 'build')));
 
+/**
+ * Webpack middleware
+ */
+app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
+}));
+
+app.use(webpackHotMiddleware(compiler));
+
+
+/**
+ * Parsers init
+ */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cookieParser());
 
-app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath,
-    stats: false
-}));
-
-app.use(webpackHotMiddleware(compiler));
-
-app.use(express.static(path.resolve(__dirname, 'build')));
-
-// Passport settings
+/**
+ * Authentification
+ */
 app.use(expressSession({
     secret: 'secretKey',
     resave: true,
@@ -52,11 +67,23 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(flash());
-
 initPassport(passport);
 
-// Routing
-app.use('/', routes);
+/**
+ * Routes
+ */
+app.use('/', routes)
 
-app.listen(config.port, () => console.log('Server started on port ' + config.port));
+/**
+ * Start server
+ */
+const server = http.createServer(app);
+
+server.listen(
+    config.server.port,
+    'localhost',
+    (err) => {
+        if(err) throw err
+        console.log('Server started on port ' + server.address().port)
+    }
+)

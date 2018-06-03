@@ -1,4 +1,8 @@
 module.exports = {
-    port: 3000,
-    dbUrl: 'mongodb://localhost/help-desk'
-};
+    server: {
+        port: 3000
+    },
+    db: {
+        url: 'mongodb://localhost/help-desk'
+    }
+}

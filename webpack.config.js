@@ -1,50 +1,63 @@
-const webpack = require('webpack');
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     mode: 'development',
-    entry: {
-        index: [
-            'webpack-hot-middleware/client',
-            'babel-polyfill',
-            './src/client/index.js'
-        ]
-    },
+
+    devtool: 'eval-source-map',
+
+    entry: [
+        'webpack-hot-middleware/client',
+        './client/index.js'
+    ],
+
     output: {
         path: path.resolve(__dirname, './build'),
         filename: 'bundle.js',
         publicPath: '/'
     },
 
-    devtool: 'cheap-module-eval-source-map',
+    plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new ExtractTextPlugin({
+            filename: 'style.css'
+        })
+    ],
+
+    resolve: {
+        extensions: ['.js'],
+        alias: {
+            request: 'browser-request'
+        }
+    },
 
     module: {
         rules: [
             {
-                test: /\.js?$/,
-                exclude: /node_modules/,
-                include: path.resolve(__dirname, './src/client'),
-                loader: 'babel-loader'
+                test: /\.js$/,
+                loader: 'babel-loader',
+                include: path.resolve(__dirname, './client')
             },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
+                use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        'css-loader',
-                        'sass-loader'
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
                     ]
-                })
+                }))
             }
         ]
-    },
-
-    plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin({
-            filename: 'style.css'
-        })
-    ]
-};
+    }
+}
