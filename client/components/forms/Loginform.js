@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import Card from '../../components/card/Crad'
@@ -33,6 +34,8 @@ export default class RegisterForm extends Component {
                     <Input name='username' placeholder='User Name' />
                     <Input type='password' name='password' placeholder='Password' />
                     <Button type='submit' text='Sign In' />
+                    <div className='form-separator'>or</div>
+                    <Link to='/register'>Register New User</Link>
                 </form>
             </Card>
         )

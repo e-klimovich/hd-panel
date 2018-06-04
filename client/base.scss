@@ -32,6 +32,12 @@ button {
 
 a {
     text-decoration: none;
+    color: #495057;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: rgb(104, 44, 199);
+    }
 }
 
 h1,
@@ -69,6 +75,13 @@ form {
 }
 
 /* Helpers */
-
+.form-separator {
+    margin: 8px 0;
+    color: #495057;
+    font: {
+        family: 'Playfair Display', serif;
+        size: 12px;
+    }
+}
 
 /* ------- */
