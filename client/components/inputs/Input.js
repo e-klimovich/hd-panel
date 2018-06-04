@@ -26,7 +26,13 @@ export default class Input extends Component {
 
         return (
             <div className='input-group'>
-                <input type={type} name={name} value={this.state.value} placeholder={placeholder} onChange={this.handleChange} />
+                <input 
+                    type={type} 
+                    name={name} 
+                    value={this.state.value} 
+                    placeholder={placeholder} 
+                    autoComplete='off' 
+                    onChange={this.handleChange} />
             </div>
         )
     }

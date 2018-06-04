@@ -14,45 +14,24 @@ const app = 'Loading...'
 
 module.exports = () => {
     router.get('/', (req, res) => {
-        res.render('template', {
-            title: 'Trrrrrrr',
-            body: app
-        })
+
+        // if user not auth go to register
+        res.redirect('/register')
     })
-    
-    router.get('/login', (req, res) => {
-        res.render('template', {
-            title: 'Login',
-            body: 'Login page'
-        })
-    })
-    
-    router.get('/signup', (req, res) => {
+
+    router.get('/register', (req, res) => {
         res.render('template', {
             title: 'Sign Up User',
             body: app
         })
     })
 
-    router.post('/signup', (req, res) => {
-        
-        res.send(req.body)
-
-        // res.json({
-        //     response: true
-        // })
-    })
-    
-    // TODO: add pages
-    // 1. edit user profile
-    // 2. note link for modal call (?)
-    router.get('/profile/:id', (req, res) => {
-        res.render('template', {
-            title: 'User profile',
-            body: 'User page or admin look as user with ID ' + req.params.id
+    router.post('/api/register', (req, res) => {
+        res.json({
+            err: false
         })
     })
-    
+
     router.get('*', (req, res) => {
         res.status(404).send('Error 404: page not found')
     })
