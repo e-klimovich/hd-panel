@@ -21,12 +21,12 @@ export default class Input extends Component {
     }
 
     render() {
-        const { name } = this.props;
+        const { name, placeholder } = this.props;
         const type = this.props.type || 'text';
 
         return (
             <div className='input-group'>
-                <input type={type} name={name} value={this.state.value} onChange={this.handleChange} />
+                <input type={type} name={name} value={this.state.value} placeholder={placeholder} onChange={this.handleChange} />
             </div>
         )
     }

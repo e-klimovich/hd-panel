@@ -1,0 +1,18 @@
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+
+    input {
+        color: #495057;
+        background-color: #FFFFFF;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        line-height: 36px;
+        width: 100%;
+        padding-left: 15px;
+        font: {
+            size: 16px;
+        }
+    }
+}
