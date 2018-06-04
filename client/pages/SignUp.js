@@ -4,7 +4,7 @@ import Page from './decorators/page.decorator'
 import RegisterForm from '../components/forms/register/RegisterForm'
 
 
-import './signin.scss'
+import './signup.scss'
 
 export default class SignIn extends Component {
     render() {

@@ -27,11 +27,20 @@ module.exports = () => {
         })
     })
     
-    router.get('/register', (req, res) => {
+    router.get('/signup', (req, res) => {
         res.render('template', {
-            title: 'Register',
-            body: 'Register new user page'
+            title: 'Sign Up User',
+            body: app
         })
+    })
+
+    router.post('/signup', (req, res) => {
+        
+        res.send(req.body)
+
+        // res.json({
+        //     response: true
+        // })
     })
     
     // TODO: add pages

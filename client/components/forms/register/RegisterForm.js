@@ -22,7 +22,7 @@ export default class RegisterForm extends Component {
         return (
             <Card>
                 <form className='register-form' onSubmit={this.hendleSubmit}>
-                    <h2>Register Form</h2>
+                    <h2>Sign Up Form</h2>
                     <Input name='username' placeholder='User Name' />
                     <Input name='email' placeholder='Email' />
                     <Input type='password' name='password' placeholder='Password' />

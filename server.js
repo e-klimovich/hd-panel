@@ -41,6 +41,7 @@ app.use(express.static(path.resolve(__dirname, 'build')));
  */
 app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
+    quiet: true,
     publicPath: webpackConfig.output.publicPath
 }));
 
