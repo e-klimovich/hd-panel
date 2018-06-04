@@ -1,18 +1,17 @@
-const login = require('./login')
 const User = require('../models/user.model')
+const register = require('./register')
 
 module.exports = (passport) => {
 
-    passport.serializeUser((user, done) => {
-        done(null, user._id);
+    passport.serializeUser(function(user, done) {
+        done(null, user.id);
     });
 
-    passport.deserializeUser((id, done) => {
-        User.findById(id, (err, user) => {
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
             done(err, user);
         });
     });
 
-    login(passport);
-
+    register(passport)
 }

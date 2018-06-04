@@ -47,7 +47,6 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
-
 /**
  * Parsers init
  */

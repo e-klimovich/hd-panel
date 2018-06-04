@@ -1,4 +1,5 @@
 const express = require('express')
+const passport = require('passport')
 
 const router = express.Router()
 
@@ -13,7 +14,8 @@ const router = express.Router()
 const app = 'Loading...'
 
 module.exports = () => {
-    router.get('/', isLoggedIn, (req, res) => {
+
+    router.get('/', (req, res) => {
         res.render('template', {
             title: 'User Profile',
             body: app
@@ -30,11 +32,13 @@ module.exports = () => {
         })
     })
 
-    router.post('/api/register', (req, res) => {
-        res.json({
-            err: false
-        })
-    })
+    router.post('/api/register', passport.authenticate(
+        'register',
+        {
+            successRedirect : '/',
+            failureRedirect : '/register'
+        }
+    ))
 
     /**
      * Login users
@@ -56,16 +60,6 @@ module.exports = () => {
         res.status(404).send('Error 404: page not found')
     })
 
-    /**
-     * Route middleware function to know is user loggined
-     */
-    function isLoggedIn(req, res, next) {
-        if(req.isAuthenticated()) {
-            return next()
-        } else {
-            res.redirect('/login')
-        }
-    }
-
     return router
+
 }
