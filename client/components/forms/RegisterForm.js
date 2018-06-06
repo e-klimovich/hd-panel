@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import serialize from 'form-serialize'
 
-import Card from '../../components/card/Crad'
+import Card from '../../components/card/Card'
 import Input from '../inputs/Input'
 import Button from '../../components/button/Button'
 
@@ -15,12 +16,12 @@ export default class RegisterForm extends Component {
     hendleSubmit(event) {
         event.preventDefault();
 
-        let data = new FormData(event.target);
+        let data = serialize(event.target);
         
         axios.post('/api/register', data)
             .then(res => {
-                if(!res.data.err) {
-                    alert('Response has no errors')
+                if(res.data.err) {
+                    console.log(res.data.err);
                 }
             })
     }

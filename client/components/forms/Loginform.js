@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-import Card from '../../components/card/Crad'
+import Card from '../../components/card/Card'
 import Input from '../inputs/Input'
 import Button from '../../components/button/Button'
 

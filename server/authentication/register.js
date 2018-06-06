@@ -3,8 +3,8 @@ const User = require('../models/user.model');
 
 module.exports = (passport) => {
 
-    passport.use('register', new LocalStrategy({
-        usernameField : 'email',
+    passport.use('local-register', new LocalStrategy({
+        usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true
     },
@@ -13,7 +13,7 @@ module.exports = (passport) => {
 
         process.nextTick(() => {
 
-            User.findOne({ 'local.username' :  username }, (err, user) => {
+            User.findOne({ 'username': username }, (err, user) => {
                 if (err) return done(err)
 
                 if (user) {

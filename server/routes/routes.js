@@ -1,5 +1,5 @@
 const express = require('express')
-const passport = require('passport')
+//const passport = require('passport')
 
 const router = express.Router()
 
@@ -32,13 +32,11 @@ module.exports = () => {
         })
     })
 
-    router.post('/api/register', passport.authenticate(
-        'register',
-        {
-            successRedirect : '/',
-            failureRedirect : '/register'
+    router.post('/api/register', (req, res) => {
+            console.log(req.body);
+            res.json(req.body);
         }
-    ))
+    )
 
     /**
      * Login users
