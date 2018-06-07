@@ -1,15 +1,8 @@
 const express = require('express')
+const User = require('../models/user.model')
 //const passport = require('passport')
 
 const router = express.Router()
-
-// !SSR!
-//
-// import React from 'react'
-// import { renderToString } from 'react-dom/server'
-// import App from '../../client/App'
-
-// const app = renderToString(<App />)
 
 const app = 'Loading...'
 
@@ -33,8 +26,21 @@ module.exports = () => {
     })
 
     router.post('/api/register', (req, res) => {
-            console.log(req.body);
-            res.json(req.body);
+            let userData = {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            }
+            
+            let user = new User(userData)
+            user.save((err) => {
+                console.log('User was successfully created!')
+
+                res.json({
+                    err: err.code || false,
+                    userid: user._id
+                })
+            })
         }
     )
 
@@ -54,9 +60,39 @@ module.exports = () => {
         })
     })
 
+    /**
+     * Profile
+     */
+
+    router.get('/profile/:id', isUserAuthorize, (req, res) => {
+        res.send('This is user profile ' + req.params.id)
+    })
+
     router.get('*', (req, res) => {
         res.status(404).send('Error 404: page not found')
     })
+
+    /**
+     * Authorization check middleware
+     */
+    function isUserAuthorize(req, res, next) {
+        console.log(req.session);
+
+        if (req.session.user_id) {
+            User.findById(req.session.user_id,
+                (user) => {
+                    if (user) {
+                        req.currentUser = user;
+                        next();
+                    } else {
+                        res.redirect('/login');
+                    }
+                }
+            )
+        } else {
+            res.redirect('/login');
+        }
+    }
 
     return router
 

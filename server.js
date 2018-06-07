@@ -53,7 +53,7 @@ app.use(webpackHotMiddleware(compiler));
  */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 app.use(cookieParser());
 

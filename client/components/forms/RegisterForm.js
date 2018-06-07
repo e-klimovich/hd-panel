@@ -20,9 +20,10 @@ export default class RegisterForm extends Component {
         
         axios.post('/api/register', data)
             .then(res => {
-                if(res.data.err) {
-                    console.log(res.data.err);
-                }
+                if(res.data.err)
+                    alert(`Error ${res.data.err}: Go to hell. Something get wrong but i do not whant to check`)
+                else 
+                    window.location = `/profile/${res.data.userid}`
             })
     }
 
