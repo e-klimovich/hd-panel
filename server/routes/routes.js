@@ -1,6 +1,6 @@
 const express = require('express')
 const User = require('../models/user.model')
-//const passport = require('passport')
+const passport = require('passport')
 
 const router = express.Router()
 
@@ -8,9 +8,11 @@ const app = 'Loading...'
 
 module.exports = () => {
 
-    router.get('/', (req, res) => {
+    router.get('/',
+    require('connect-ensure-login').ensureLoggedIn(),
+    (req, res) => {
         res.render('template', {
-            title: 'User Profile',
+            title: `${req.user.username}'s Dashboard`,
             body: app
         })
     })
@@ -25,7 +27,7 @@ module.exports = () => {
         })
     })
 
-    router.post('/api/register', (req, res) => {
+    router.post('/register', (req, res) => {
             let userData = {
                 username: req.body.username,
                 email: req.body.email,
@@ -36,10 +38,7 @@ module.exports = () => {
             user.save((err) => {
                 console.log('User was successfully created!')
 
-                res.json({
-                    err: err.code || false,
-                    userid: user._id
-                })
+                res.redirect('/login')
             })
         }
     )
@@ -54,45 +53,26 @@ module.exports = () => {
         })
     })
 
-    router.post('/api/login', (req, res) => {
-        res.json({
-            err: false
-        })
+    router.post('/login',
+    passport.authenticate('local', {
+        failureRedirect: '/login'
+    }),
+    (req, res) => {
+        res.redirect('/')
+        console.log(req.user)
     })
 
     /**
-     * Profile
+     * Logout
      */
-
-    router.get('/profile/:id', isUserAuthorize, (req, res) => {
-        res.send('This is user profile ' + req.params.id)
+    router.post('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/login');
     })
 
     router.get('*', (req, res) => {
         res.status(404).send('Error 404: page not found')
     })
-
-    /**
-     * Authorization check middleware
-     */
-    function isUserAuthorize(req, res, next) {
-        console.log(req.session);
-
-        if (req.session.user_id) {
-            User.findById(req.session.user_id,
-                (user) => {
-                    if (user) {
-                        req.currentUser = user;
-                        next();
-                    } else {
-                        res.redirect('/login');
-                    }
-                }
-            )
-        } else {
-            res.redirect('/login');
-        }
-    }
 
     return router
 

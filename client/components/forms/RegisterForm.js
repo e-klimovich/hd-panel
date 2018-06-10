@@ -10,27 +10,27 @@ export default class RegisterForm extends Component {
     constructor(props) {
         super(props);
         
-        this.hendleSubmit = this.hendleSubmit.bind(this);
+        // this.hendleSubmit = this.hendleSubmit.bind(this);
     }
     
-    hendleSubmit(event) {
-        event.preventDefault();
+    // hendleSubmit(event) {
+    //     event.preventDefault();
 
-        let data = serialize(event.target);
+    //     let data = serialize(event.target);
         
-        axios.post('/api/register', data)
-            .then(res => {
-                if(res.data.err)
-                    alert(`Error ${res.data.err}: Go to hell. Something get wrong but i do not whant to check`)
-                else 
-                    window.location = `/profile/${res.data.userid}`
-            })
-    }
+    //     axios.post('/register', data)
+    //         .then(res => {
+    //             if(res.data.err)
+    //                 alert(`Error ${res.data.err}: Go to hell. Something get wrong but i do not whant to check`)
+    //             else 
+    //                 window.location = `/login`
+    //         })
+    // }
 
     render() {
         return (
             <Card>
-                <form className='single-form' onSubmit={this.hendleSubmit}>
+                <form method='post' action='/register' className='single-form'>
                     <h2>Sign Up Form</h2>
                     <Input name='username' placeholder='User Name' />
                     <Input name='email' placeholder='Email' />

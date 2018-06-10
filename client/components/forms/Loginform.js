@@ -10,26 +10,26 @@ export default class RegisterForm extends Component {
     constructor(props) {
         super(props);
         
-        this.hendleSubmit = this.hendleSubmit.bind(this);
+        // this.hendleSubmit = this.hendleSubmit.bind(this);
     }
     
-    hendleSubmit(event) {
-        event.preventDefault();
+    // hendleSubmit(event) {
+    //     event.preventDefault();
 
-        let data = new FormData(event.target);
+    //     let data = new FormData(event.target);
         
-        axios.post('/api/login', data)
-            .then(res => {
-                if(!res.data.err) {
-                    alert('Response has no errors')
-                }
-            })
-    }
+    //     axios.post('/login', data)
+    //         .then(res => {
+    //             if(!res.data.err) {
+    //                 alert('Response has no errors')
+    //             }
+    //         })
+    // }
 
     render() {
         return (
             <Card>
-                <form className='single-form' onSubmit={this.hendleSubmit}>
+                <form method='post' action='/login' className='single-form'>
                     <h2>User Sign In</h2>
                     <Input name='username' placeholder='User Name' />
                     <Input type='password' name='password' placeholder='Password' />
