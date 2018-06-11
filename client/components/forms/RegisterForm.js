@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import Card from '../../components/card/Card'
-import Input from '../inputs/Input'
-import Button from '../../components/button/Button'
+import Card from '../Card'
+import Input from '../Input'
+import Button from '../Button'
 
 export default class RegisterForm extends Component {
     constructor(props) {

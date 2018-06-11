@@ -3,14 +3,13 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.01), 0 15px 32px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    padding: 30px;
+    background-color: #ffffff;
 `
 
-export default class Page extends Component {
+export default class Card extends Component {
     render() {
         const { children } = this.props;
 
