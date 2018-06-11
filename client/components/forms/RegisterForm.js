@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import serialize from 'form-serialize'
 
 import Card from '../../components/card/Card'
 import Input from '../inputs/Input'
@@ -9,23 +7,7 @@ import Button from '../../components/button/Button'
 export default class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        
-        // this.hendleSubmit = this.hendleSubmit.bind(this);
     }
-    
-    // hendleSubmit(event) {
-    //     event.preventDefault();
-
-    //     let data = serialize(event.target);
-        
-    //     axios.post('/register', data)
-    //         .then(res => {
-    //             if(res.data.err)
-    //                 alert(`Error ${res.data.err}: Go to hell. Something get wrong but i do not whant to check`)
-    //             else 
-    //                 window.location = `/login`
-    //         })
-    // }
 
     render() {
         return (
