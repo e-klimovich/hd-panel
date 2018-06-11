@@ -42,7 +42,7 @@ module.exports = {
                 include: path.resolve(__dirname, './client')
             },
             {
-                test: /\.scss$/,
+                test: /\.scss|.css$/,
                 use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [

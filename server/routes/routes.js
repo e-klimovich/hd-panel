@@ -1,6 +1,8 @@
 const express = require('express')
-const User = require('../models/user.model')
 const passport = require('passport')
+
+const User = require('../models/user.model')
+const Note = require('../models/note.model')
 
 const router = express.Router()
 
@@ -62,15 +64,58 @@ module.exports = () => {
     }),
     (req, res) => {
         res.redirect('/')
-        console.log(req.user)
     })
 
     /**
      * Logout
      */
-    router.post('/logout', (req, res) => {
+    router.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/login');
+    })
+
+    /**
+     * Create note
+     */
+    router.post('/add-note', (req, res) => {
+
+        let note = new Note({
+            title: req.body.title,
+            content: req.body.content,
+            create_date: new Date(),
+            author_id: req.user._id
+        })
+
+        console.log(note)
+        
+        note.save((err) => {
+            if(!err) {
+                console.log('Note was successfully created!')
+
+                res.json({
+                    err: false,
+                    message: 'Note successfully saved'
+                })
+            }
+        })
+    })
+
+    /**
+     * Get notes for current user
+     */
+    router.get('/note-list', (req, res) => {
+
+        let noteList = {}
+
+        Note.find({
+            //author_id: req.user._id
+        }, (err, docs) => {
+            noteList = docs
+        })
+
+        res.json({
+            noteList: noteList
+        })
     })
 
     router.get('*', (req, res) => {

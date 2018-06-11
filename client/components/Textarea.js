@@ -8,13 +8,14 @@ const FormGroup = styled.div`
     width: 100%;
 `
 
-const InputField = styled.input`
+const InputField = styled.textarea`
     color: #495057;
     background-color: #FFFFFF;
     border: 1px solid #CED4DA;
     border-radius: 18px;
     line-height: 36px;
     width: 100%;
+    min-height: 150px;
     padding-left: 18px;
     font-size: 16px;
 `
@@ -38,12 +39,10 @@ export default class Input extends Component {
 
     render() {
         const { name, placeholder, required } = this.props;
-        const type = this.props.type || 'text';
 
         return (
             <FormGroup>
                 <InputField 
-                    type={type} 
                     name={name} 
                     value={this.state.value} 
                     placeholder={placeholder} 

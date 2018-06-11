@@ -25,7 +25,7 @@ const initPassport = require('./server/authentication/init')
  * Connect to MongoDB
  */
 mongoose.connect(config.db.url)
-    .then(console.log('Connected to config.db.url'))
+    .then(console.log(`Connected to ${config.db.url}`))
     .catch(e => console.log(e.message))
 
 /**
