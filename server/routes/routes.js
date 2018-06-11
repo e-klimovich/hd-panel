@@ -35,10 +35,13 @@ module.exports = () => {
             }
             
             let user = new User(userData)
+            
             user.save((err) => {
-                console.log('User was successfully created!')
+                if(!err) {
+                    console.log('User was successfully created!')
 
-                res.redirect('/login')
+                    res.redirect('/login')
+                }
             })
         }
     )
