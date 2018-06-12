@@ -5,10 +5,11 @@ import axios from 'axios'
 
 import Page from './decorators/page.decorator'
 import Sidebar from './../components/sidebar/Sidebar'
-import Card from './../components/Card'
+import Card from './decorators/card.decorator'
 import Input from './../components/Input'
 import Textarea from './../components/Textarea'
 import Button from './../components/Button'
+import NoteItem from '../components/Note'
 import { ToastContainer, toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -23,6 +24,7 @@ const ContentWrapper = styled.div`
 
 const NoteForm = styled.form`
     width: 100%;
+    text-align: right;
 `
 
 export default class Dashboard extends Component {
@@ -30,6 +32,7 @@ export default class Dashboard extends Component {
         super(props)
 
         this.state = {
+            user: {},
             noteList: []
         }
 
@@ -44,7 +47,8 @@ export default class Dashboard extends Component {
         axios.post('/add-note', data)
             .then(res => {
                 toast(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                    autoClose: 3000
                 })
 
                 this.getNoteList()
@@ -62,15 +66,26 @@ export default class Dashboard extends Component {
 
     componentDidMount() {
         this.getNoteList()
+
+        axios.get('/get-user')
+            .then(res => {
+                this.setState({
+                    user: res.data.user
+                })
+            })
     }
 
     render() {
-        const noteItemsList = this.state.noteList.map((itm, idx) => <li key={idx}>{itm.title}</li>)
+        const noteItemList = this.state.noteList.length
+            ? this.state.noteList.map((itm, idx) => <NoteItem key={idx} data={itm}/>)
+            : <Card>There are no results yet</Card>
 
         return (
             <Page>
                 <Sidebar />
                 <ContentWrapper>
+                    {noteItemList}
+
                     <Card>
                         <NoteForm action='/add-note' method='post' onSubmit={this.onNoteSubmitHandler}>
                             <Input name='title' placeholder='Note Title' required />
@@ -78,9 +93,7 @@ export default class Dashboard extends Component {
                             <Button type='submit' text='Save Note' />
                         </NoteForm>
                     </Card>
-                    <Card>
-                        {noteItemsList}
-                    </Card>
+
                 </ContentWrapper>
 
                 <ToastContainer />

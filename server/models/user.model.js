@@ -14,6 +14,10 @@ const schema = new Schema({
     email: {
         type: String,
         required: false
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
     }
 })
 

@@ -33,7 +33,8 @@ module.exports = () => {
             let userData = {
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                isAdmin: 0
             }
             
             let user = new User(userData)
@@ -105,9 +106,9 @@ module.exports = () => {
      */
     router.post('/note-list', (req, res) => {
 
-        Note.find({
-            author_id: req.user._id
-        }, (err, docs) => {
+        let filterBy = req.user.isAdmin ? {} : {author_id: req.user._id}
+
+        Note.find(filterBy, (err, docs) => {
             res.json({
                 noteList: docs
             })

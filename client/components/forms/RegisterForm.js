@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Card from '../Card'
+import Card from '../../pages/decorators/card.decorator'
 import Input from '../Input'
 import Button from '../Button'
 
