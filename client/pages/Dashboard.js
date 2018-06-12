@@ -30,11 +30,10 @@ export default class Dashboard extends Component {
         super(props)
 
         this.state = {
-            noteList: {}
+            noteList: []
         }
 
         this.onNoteSubmitHandler = this.onNoteSubmitHandler.bind(this)
-        this.getNoteList = this.getNoteList.bind(this)
     }
 
     onNoteSubmitHandler(e) {
@@ -53,14 +52,12 @@ export default class Dashboard extends Component {
     }
 
     getNoteList() {
-        axios.get('/note-list')
+        axios.post('/note-list')
             .then(res => {
                 this.setState({
                     noteList: res.data.noteList
                 })
             })
-
-        console.log(this.state.noteList); //TODO: list have to be rendered
     }
 
     componentDidMount() {
@@ -68,6 +65,8 @@ export default class Dashboard extends Component {
     }
 
     render() {
+        const noteItemsList = this.state.noteList.map((itm, idx) => <li key={idx}>{itm.title}</li>)
+
         return (
             <Page>
                 <Sidebar />
@@ -80,7 +79,7 @@ export default class Dashboard extends Component {
                         </NoteForm>
                     </Card>
                     <Card>
-                        Note list
+                        {noteItemsList}
                     </Card>
                 </ContentWrapper>
 

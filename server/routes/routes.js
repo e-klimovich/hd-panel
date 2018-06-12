@@ -103,19 +103,16 @@ module.exports = () => {
     /**
      * Get notes for current user
      */
-    router.get('/note-list', (req, res) => {
-
-        let noteList = {}
+    router.post('/note-list', (req, res) => {
 
         Note.find({
-            //author_id: req.user._id
+            author_id: req.user._id
         }, (err, docs) => {
-            noteList = docs
+            res.json({
+                noteList: docs
+            })
         })
 
-        res.json({
-            noteList: noteList
-        })
     })
 
     router.get('*', (req, res) => {
