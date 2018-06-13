@@ -1,5 +1,7 @@
 const express = require('express')
 const passport = require('passport')
+const ensureLoggedIn = require('connect-ensure-login/lib/ensureLoggedIn')
+const ensureLoggedOut = require('connect-ensure-login/lib/ensureLoggedOut')
 
 const User = require('../models/user.model')
 const Note = require('../models/note.model')
@@ -11,7 +13,7 @@ const app = 'Loading...'
 module.exports = () => {
 
     router.get('/',
-    require('connect-ensure-login').ensureLoggedIn(),
+    ensureLoggedIn('/login'),
     (req, res) => {
         res.render('template', {
             title: `${req.user.username}'s Dashboard`,
@@ -22,7 +24,9 @@ module.exports = () => {
     /**
      * Register users
      */
-    router.get('/register', (req, res) => {
+    router.get('/register',
+    ensureLoggedOut('/'),
+    (req, res) => {
         res.render('template', {
             title: 'Register User',
             body: app
@@ -52,7 +56,9 @@ module.exports = () => {
     /**
      * Login users
      */
-    router.get('/login', (req, res) => {
+    router.get('/login',
+    ensureLoggedOut('/'),
+    (req, res) => {
         res.render('template', {
             title: 'Login User',
             body: app

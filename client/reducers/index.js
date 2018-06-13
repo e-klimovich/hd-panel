@@ -1,7 +1,8 @@
-const initialState = {
-    user: 'Unknown User'
-}
+import { combineReducers } from 'redux'
+import currentUser from './user/currentUser'
+import avaliableNoties from './note/avaliableNoties'
 
-export default function userstate(state = initialState) {
-    return state;
-}
+export default combineReducers({
+    currentUser,
+    avaliableNoties
+})

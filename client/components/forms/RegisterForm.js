@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import Card from '../../pages/decorators/card.decorator'
 import Input from '../Input'
@@ -18,6 +19,8 @@ export default class RegisterForm extends Component {
                     <Input name='email' required placeholder='Email' />
                     <Input type='password' required name='password' placeholder='Password' />
                     <Button type='submit' text='Register Now' />
+                    <div className='form-separator'>or</div>
+                    <Link to='/login'>Try to Login</Link>
                 </form>
             </Card>
         )
