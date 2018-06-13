@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader'
 
 import Page from './decorators/page.decorator'
 import RegisterForm from '../components/forms/RegisterForm'
 
-export default class SignIn extends Component {
+class Register extends Component {
     render() {
         return (
             <Page>
@@ -12,5 +13,7 @@ export default class SignIn extends Component {
         )
     }
 }
+
+export default hot(module)(Register)
 
 

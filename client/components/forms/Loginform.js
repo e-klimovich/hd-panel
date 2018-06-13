@@ -15,8 +15,8 @@ export default class RegisterForm extends Component {
             <Card>
                 <form method='post' action='/login'>
                     <h2>User Sign In</h2>
-                    <Input name='username' placeholder='User Name' />
-                    <Input type='password' name='password' placeholder='Password' />
+                    <Input name='username' required placeholder='User Name'/>
+                    <Input type='password' required name='password' placeholder='Password' />
                     <Button type='submit' text='Sign In' />
                     <div className='form-separator'>or</div>
                     <Link to='/register'>Register New User</Link>

@@ -11,6 +11,11 @@ const Btn = styled.button`
     height: 46px;
     padding: 14px 40px;
     margin-top: 15px;
+    transform: scale(1);
+
+    &:focus {
+        transform: scale(0.98);
+    }
 `
 
 export default class Button extends Component {

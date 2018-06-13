@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import serialize from 'form-serialize'
 import axios from 'axios'
+import { hot } from 'react-hot-loader'
 
 import Page from './decorators/page.decorator'
 import Sidebar from './../components/sidebar/Sidebar'
@@ -27,7 +28,7 @@ const NoteForm = styled.form`
     text-align: right;
 `
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props)
 
@@ -66,13 +67,6 @@ export default class Dashboard extends Component {
 
     componentDidMount() {
         this.getNoteList()
-
-        axios.get('/get-user')
-            .then(res => {
-                this.setState({
-                    user: res.data.user
-                })
-            })
     }
 
     render() {
@@ -101,3 +95,5 @@ export default class Dashboard extends Component {
         )
     }
 }
+
+export default /*hot(module)(Dashboard)*/ Dashboard

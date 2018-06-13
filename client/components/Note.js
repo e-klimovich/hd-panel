@@ -45,6 +45,10 @@ const BtnControls = styled.div`
         &:hover {
             color: #7d7d7d;
         }
+
+        &:active {
+            transform: scale(0.97);
+        }
     }  
 `
 
