@@ -96,4 +96,4 @@ class Dashboard extends Component {
     }
 }
 
-export default /*hot(module)(Dashboard)*/ Dashboard
+export default hot(module)(Dashboard)

@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-// import { hot } from 'react-hot-loader';
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Dashboard from './pages/Dashboard'
 import Register from './pages/Register'
 import Login from './pages/Login'
 
-class App extends Component {
+export default class App extends Component {
     render() {
         return(
             <BrowserRouter>
@@ -20,13 +18,3 @@ class App extends Component {
         )
     }
 }
-
-// export default hot(module)(App)
-
-function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
-}
-
-export default connect(mapStateToProps)(App)

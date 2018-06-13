@@ -57,20 +57,26 @@ module.exports = () => {
      * Login users
      */
     router.get('/login',
-    ensureLoggedOut('/'),
-    (req, res) => {
-        res.render('template', {
-            title: 'Login User',
-            body: app
-        })
+        ensureLoggedOut('/'),
+        (req, res) => {
+            res.render('template', {
+                title: 'Login User',
+                body: app
+            })
     })
 
-    router.post('/login',
+    router.post('/api/login',
     passport.authenticate('local', {
         failureRedirect: '/login'
     }),
     (req, res) => {
-        res.redirect('/')
+        res.json({
+            user: {
+                _id: req.user.id,
+                username: req.user.username,
+                isAdmin: req.user.isAdmin,
+            }
+        })
     })
 
     /**
