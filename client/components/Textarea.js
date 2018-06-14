@@ -8,7 +8,7 @@ const FormGroup = styled.div`
     width: 100%;
 `
 
-const InputField = styled.textarea`
+const TextareaField = styled.textarea`
     color: #495057;
     background-color: #FFFFFF;
     border: 1px solid #CED4DA;
@@ -25,7 +25,7 @@ export default class Input extends Component {
         super(props);
 
         this.state = {
-            value: ''
+            value: this.props.value || ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -42,7 +42,7 @@ export default class Input extends Component {
 
         return (
             <FormGroup>
-                <InputField 
+                <TextareaField 
                     name={name} 
                     value={this.state.value} 
                     placeholder={placeholder} 

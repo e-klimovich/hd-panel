@@ -11,7 +11,7 @@ import Input from './../components/Input'
 import Textarea from './../components/Textarea'
 import Button from './../components/Button'
 import NoteItem from '../components/Note'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -45,7 +45,7 @@ class Dashboard extends Component {
 
         let data = serialize(e.target, {hash: true})
 
-        axios.post('/add-note', data)
+        axios.post('/api/add-note', data)
             .then(res => {
                 toast(res.data.message, {
                     position: toast.POSITION.BOTTOM_RIGHT,
@@ -57,7 +57,7 @@ class Dashboard extends Component {
     }
 
     getNoteList() {
-        axios.post('/note-list')
+        axios.post('/api/note-list')
             .then(res => {
                 this.setState({
                     noteList: res.data.noteList
@@ -81,16 +81,13 @@ class Dashboard extends Component {
                     {noteItemList}
 
                     <Card>
-                        <NoteForm action='/add-note' method='post' onSubmit={this.onNoteSubmitHandler}>
+                        <NoteForm onSubmit={this.onNoteSubmitHandler}>
                             <Input name='title' placeholder='Note Title' required />
                             <Textarea name='content' placeholder='Note Content...' required />
                             <Button type='submit' text='Save Note' />
                         </NoteForm>
                     </Card>
-
                 </ContentWrapper>
-
-                <ToastContainer />
             </Page>
         )
     }

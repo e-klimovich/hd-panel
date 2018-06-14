@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { ToastContainer } from 'react-toastify'
 
 const Wrapper = styled.div`
     display: flex;
@@ -16,6 +17,7 @@ export default class Page extends Component {
         return (
             <Wrapper>
                 {children}
+                <ToastContainer />
             </Wrapper>
         )
     }

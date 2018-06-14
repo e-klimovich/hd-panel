@@ -13,7 +13,7 @@ export default class RegisterForm extends Component {
     render() {
         return (
             <Card>
-                <form method='post' action='/register' className='single-form'>
+                <form method='post' action='/api/register' className='single-form'>
                     <h2>Sign Up Form</h2>
                     <Input name='username' required placeholder='User Name' />
                     <Input name='email' required placeholder='Email' />

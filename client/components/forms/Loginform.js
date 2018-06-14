@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import serialize from 'form-serialize'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import Card from '../../pages/decorators/card.decorator'
 import Input from '../Input'
@@ -37,7 +37,7 @@ export default class LoginForm extends Component {
     render() {
         return (
             <Card>
-                <form method='post' action='/api/login' onSubmit={this.formSubminHandler}>
+                <form onSubmit={this.formSubminHandler}>
                     <h2>User Sign In</h2>
                     <Input name='username' required placeholder='User Name'/>
                     <Input type='password' required name='password' placeholder='Password' />
@@ -45,7 +45,6 @@ export default class LoginForm extends Component {
                     <div className='form-separator'>or</div>
                     <Link to='/register'>Register New User</Link>
                 </form>
-                <ToastContainer />
             </Card>
         )
     }
