@@ -46,11 +46,21 @@ const NavWrapper = styled.div`
     }
 `
 
+const User = styled.div`
+    color: #ffffff;
+`
+
 export default class Sidebar extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+
+        this.state = {
+            currentUser: {},
+            users: []
+        }
 
         this.logOutHandler = this.logOutHandler.bind(this)
+        this.getUserList = this.getUserList.bind(this)
     }
 
     logOutHandler(e) {
@@ -59,7 +69,27 @@ export default class Sidebar extends Component {
         axios.get('/logout')
     }
 
+    getUserList() {
+        axios.post('/api/get-users')
+            .then(res => {
+                if(!res.data.err) {
+                    this.setState({
+                        currentUser: res.data.currentUser,
+                        users: res.data.users
+                    })
+                }
+            })
+    }
+
+    componentDidMount() {
+        this.getUserList()
+    }
+
     render() {
+        const users = this.state.users.map((itm, idx) => {
+            <User key={idx}>{itm.username}</User>
+        })
+
         return (
             <SidebarWrapper>
                 <Logo>
@@ -71,6 +101,8 @@ export default class Sidebar extends Component {
                         <Icon name='sign-out-alt' />
                         Logout
                     </a>
+                    <br/>
+                    {users}
                 </NavWrapper>
             </ SidebarWrapper>
         )

@@ -81,8 +81,21 @@ module.exports = () => {
      * Logout
      */
     router.get('/logout', (req, res) => {
-        req.logout();
-        res.redirect('/login');
+        req.logout()
+        res.redirect('/login')
+    })
+
+    /**
+     * Userlist
+     */
+    router.post('/api/get-users', (req, res) => {
+        User.find({isAdmin: 0}, (err, docs) => {
+            res.json({
+                err: err || false,
+                currentUser: req.user,
+                users: docs
+            })
+        })
     })
 
     /**
