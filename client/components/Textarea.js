@@ -23,18 +23,6 @@ const TextareaField = styled.textarea`
 export default class Input extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            value: this.props.value || ''
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({
-            value: event.target.value
-        })
     }
 
     render() {
@@ -44,11 +32,9 @@ export default class Input extends Component {
             <FormGroup>
                 <TextareaField 
                     name={name} 
-                    value={this.state.value} 
                     placeholder={placeholder} 
                     required={required} 
-                    autoComplete='off' 
-                    onChange={this.handleChange} />
+                    autoComplete='off' />
             </FormGroup>
         )
     }
