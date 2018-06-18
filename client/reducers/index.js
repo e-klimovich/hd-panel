@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux'
-import currentUser from './user/currentUser'
-import avaliableNoties from './note/avaliableNoties'
 
-export default combineReducers({
+import currentUser from './user/currentUser'
+import users from './user/users'
+import noties from './note/noties'
+
+const rootReducer = combineReducers({
     currentUser,
-    avaliableNoties
+    users,
+    noties
 })
+
+export default rootReducer

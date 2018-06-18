@@ -1,7 +1,6 @@
 const initialState = {
-    _id: '',
-    username: '',
-    isAdmin: 0
+    _id: '0',
+    username: '[username]'
 }
 
 export default function currentUser(state = initialState) {

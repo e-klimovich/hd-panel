@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'react-fontawesome'
 import axios from 'axios';
+import { connect } from 'react-redux'
 
 const SidebarWrapper = styled.div`
     height: 100vh;
@@ -50,7 +51,7 @@ const User = styled.div`
     color: #ffffff;
 `
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
     constructor(props) {
         super(props)
 
@@ -97,6 +98,9 @@ export default class Sidebar extends Component {
                 </Logo>
 
                 <NavWrapper>
+                    <a>
+                        Hi, {this.props.currentUser.username}
+                    </a>
                     <a href='/logout' onClick={this.logOutHandler}>
                         <Icon name='sign-out-alt' />
                         Logout
@@ -108,3 +112,12 @@ export default class Sidebar extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        currentUser: state.currentUser,
+        users: state.users
+    }
+}
+
+export default connect(mapStateToProps)(Sidebar)
