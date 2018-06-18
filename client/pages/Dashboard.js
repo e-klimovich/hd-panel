@@ -10,7 +10,7 @@ import Card from './decorators/card.decorator'
 import Input from './../components/Input'
 import Textarea from './../components/Textarea'
 import Button from './../components/Button'
-import NoteItem from '../components/Note'
+import NoteItem from '../components/note/NoteItem'
 import { toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'

@@ -6,9 +6,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import serialize from 'form-serialize'
 
-import Card from '../pages/decorators/card.decorator'
-import Textarea from '../components/Textarea'
-import Button from '../components/Button'
+import Card from './../../pages/decorators/card.decorator'
+import Textarea from './../Textarea'
+import Button from './../Button'
 
 const Title = styled.div`
     margin-bottom: 15px;
@@ -31,10 +31,12 @@ const Date = styled.div`
     margin-top: 15px;
     font-size: 13px;
     color: #8c8c8c;
+    text-align: left;
 `
 
 const Content = styled.p`
     line-height: 1.8;
+    text-align: left;
 `
 
 const BtnControlsWrapper = styled.div`

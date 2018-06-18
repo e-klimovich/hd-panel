@@ -7,6 +7,7 @@ const Wrapper = styled.div`
     padding: 20px;
     background-color: #ffffff;
     margin: 30px;
+    text-align: center;
 `
 
 export default class Card extends Component {

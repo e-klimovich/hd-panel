@@ -13,15 +13,15 @@ export default class RegisterForm extends Component {
     render() {
         return (
             <Card>
+                <h2>Sign Up Form</h2>
                 <form method='post' action='/api/register' className='single-form'>
-                    <h2>Sign Up Form</h2>
                     <Input name='username' required placeholder='User Name' />
                     <Input name='email' required placeholder='Email' />
                     <Input type='password' required name='password' placeholder='Password' />
                     <Button type='submit' text='Register Now' />
-                    <div className='form-separator'>or</div>
-                    <Link to='/login'>Try to Login</Link>
                 </form>
+                <div className='form-separator'>or</div>
+                <Link to='/login'>Try to Login</Link>
             </Card>
         )
     }

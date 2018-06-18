@@ -47,18 +47,13 @@ const NavWrapper = styled.div`
     }
 `
 
-const User = styled.div`
-    color: #ffffff;
-`
+// const User = styled.div`
+//     color: #ffffff;
+// `
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-            currentUser: {},
-            users: []
-        }
 
         this.logOutHandler = this.logOutHandler.bind(this)
         this.getUserList = this.getUserList.bind(this)
@@ -74,10 +69,7 @@ class Sidebar extends Component {
         axios.post('/api/get-users')
             .then(res => {
                 if(!res.data.err) {
-                    this.setState({
-                        currentUser: res.data.currentUser,
-                        users: res.data.users
-                    })
+                    //console.log(res.data)
                 }
             })
     }
@@ -87,10 +79,6 @@ class Sidebar extends Component {
     }
 
     render() {
-        const users = this.state.users.map((itm, idx) => {
-            <User key={idx}>{itm.username}</User>
-        })
-
         return (
             <SidebarWrapper>
                 <Logo>
@@ -105,8 +93,6 @@ class Sidebar extends Component {
                         <Icon name='sign-out-alt' />
                         Logout
                     </a>
-                    <br/>
-                    {users}
                 </NavWrapper>
             </ SidebarWrapper>
         )

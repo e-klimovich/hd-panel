@@ -19,19 +19,9 @@ const Btn = styled.button`
 `
 
 export default class Button extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: ''
-        }
-    }
-
     render() {
-        const { type, text } = this.props;
-
         return (
-            <Btn type={type}>{text}</Btn>
+            <Btn type='submit'>{this.props.text}</Btn>
         )
     }
 }
