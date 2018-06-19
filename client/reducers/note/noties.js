@@ -1,22 +1,25 @@
-const initialState = [
-    {
-        _id : '001',
-        title : 'adadhjg',
-        content : 'jfh fhfgh',
-        author_id : '001',
-    },
-    {
-        _id : '002',
-        title : 'adad45654 hjg',
-        content : 'jfhfhasdasdas dasdfgh',
-        author_id : '002',
-    }
-]
+//import without from 'lodash/without'
+
+import {
+    ADD_NOTE,
+    DELETE_NOTE,
+    EDITE_NOTE
+} from './../../constatns/actionTypes'
+
+const initialState = []
 
 export default function noties(state = initialState, action) {
-    switch(action.type) {
-        case 'ADD_NOTE':
-            return [...state, action.payload]
+    const  { type, payload } = action
+
+    switch(type) {
+        case ADD_NOTE:
+            return [...state, payload]
+
+        case DELETE_NOTE:
+            return [...state, payload]
+
+        case EDITE_NOTE:
+            return [...state, payload]
 
         default: return state
     }

@@ -6,8 +6,6 @@ import Page from './decorators/page.decorator'
 import Sidebar from './../components/sidebar/Sidebar'
 import NoteList from './../components/note/NoteList'
 
-import 'react-toastify/dist/ReactToastify.css'
-
 const ContentWrapper = styled.div`
     width: calc(100% - 300px);
     height: 100vh;

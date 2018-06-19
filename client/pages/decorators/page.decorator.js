@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 const Wrapper = styled.div`
     display: flex;
     min-height: 100vh;

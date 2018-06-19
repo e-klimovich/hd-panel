@@ -8,6 +8,8 @@ import Page from './decorators/page.decorator'
 import Card from './decorators/card.decorator'
 import Form from './../components/forms/Form'
 
+import { TOAST_SETTINGS, LOGIN_FORM_SCHEME } from '../constatns/settings'
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -26,35 +28,17 @@ export default class Login extends Component {
                     // TODO: Need more research. I don't like this solution
                     location.reload()
                 } else {
-                    toast('Incorrect login or password', {
-                        position: toast.POSITION.BOTTOM_RIGHT,
-                        autoClose: 3000
-                    })
+                    toast('Incorrect login or password', TOAST_SETTINGS)
                 }
             })
     }
 
     render() {
-        const formScheme = [
-            {
-                schemeType: 'input',
-                name: 'username',
-                placeholder: 'Username',
-                required: true
-            },
-            {
-                schemeType: 'password',
-                name: 'password',
-                placeholder: 'Password',
-                required: true
-            }
-        ]
-
         return (
             <Page>
                 <Card>
                     <h2>User Sign In</h2>
-                    <Form formScheme={formScheme} btnName='Login' onSubmit={this.formSubminHandler} />
+                    <Form formScheme={LOGIN_FORM_SCHEME} btnName='Login' onSubmit={this.formSubminHandler} />
                     <div className='form-separator'>or</div>
                     <Link to='/register'>Register New User</Link>
                 </Card>
