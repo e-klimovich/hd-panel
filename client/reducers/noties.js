@@ -4,7 +4,7 @@ import {
     ADD_NOTE,
     // DELETE_NOTE,
     // EDITE_NOTE
-} from './../../constatns/actionTypes'
+} from './../constatns/actionTypes'
 
 const initialState = []
 

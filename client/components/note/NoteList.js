@@ -3,7 +3,7 @@ import axios from 'axios'
 import serialize from 'form-serialize'
 import { toast } from 'react-toastify'
 
-import Card from './../../pages/decorators/card.decorator'
+import Card from './../../containers/decorators/card.decorator'
 import Form from './../forms/Form'
 import Note from './NoteItem'
 

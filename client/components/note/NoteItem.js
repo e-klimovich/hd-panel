@@ -6,7 +6,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import serialize from 'form-serialize'
 
-import Card from './../../pages/decorators/card.decorator'
+import Card from './../../containers/decorators/card.decorator'
 import Textarea from './../Textarea'
 import Button from './../Button'
 

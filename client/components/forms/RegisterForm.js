@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import Card from '../../pages/decorators/card.decorator'
+import Card from '../../containers/decorators/card.decorator'
 import Input from '../Input'
 import Button from '../Button'
 

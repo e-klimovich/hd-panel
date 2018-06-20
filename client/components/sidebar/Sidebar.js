@@ -86,9 +86,6 @@ class Sidebar extends Component {
                 </Logo>
 
                 <NavWrapper>
-                    <a>
-                        Hi, {this.props.currentUser.username}
-                    </a>
                     <a href='/logout' onClick={this.logOutHandler}>
                         <Icon name='sign-out-alt' />
                         Logout
