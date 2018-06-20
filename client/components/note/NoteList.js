@@ -1,73 +1,38 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import serialize from 'form-serialize'
+import { connect } from 'react-redux'
+import axios from 'axios'
 import { toast } from 'react-toastify'
 
 import Card from './../../containers/decorators/card.decorator'
 import Form from './../forms/Form'
 import Note from './NoteItem'
 
+import { ADD_NOTE_FORM_SCHEME, TOAST_SETTINGS } from './../../constatns/settings'
+
+import * as noteActions from '../../actions/notes'
+
 class NoteList extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            user: {},
-            noteList: []
-        }
-
-        this.onNoteSubmitHandler = this.onNoteSubmitHandler.bind(this)
-    }
-
-    onNoteSubmitHandler(e) {
+    onAddNote(e) {
         e.preventDefault()
 
-        let data = serialize(e.target, {hash: true})
-
-        axios.post('/api/add-note', data)
-            .then(res => {
-                toast(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                    autoClose: 3000
-                })
-
-                this.getNoteList()
-            })
-
-        e.target.reset()
-    }
-
-    getNoteList() {
-        axios.post('/api/note-list')
-            .then(res => {
-                this.setState({
-                    noteList: res.data.noteList
-                })
+        const data = serialize(e.target, {hash: true})
+        
+        return axios.post('/api/add-note', data)
+            .then(data => {
+                console.log(data)
+                this.props.addNote(data)
+                toast('Note was successfully created', TOAST_SETTINGS)
             })
     }
 
     componentDidMount() {
-        this.getNoteList()
+        this.props.fetchNotes
     }
 
     render() {
-        const formScheme = [
-            {
-                schemeType: 'input',
-                name: 'title',
-                placeholder: 'Note Title',
-                required: true
-            },
-            {
-                schemeType: 'textarea',
-                name: 'content',
-                placeholder: 'Note Content...',
-                required: true
-            }
-        ]
-
-        const noteItemList = this.state.noteList.length
-            ? this.state.noteList.map((itm, idx) => <Note key={idx} data={itm}/>)
+        const noteItemList = this.props.noties
+            ? this.props.noties.map((itm, idx) => <Note key={idx} data={itm}/>)
             : <Card>There are no results yet</Card>
 
         return(
@@ -75,11 +40,27 @@ class NoteList extends Component {
                 { noteItemList }
 
                 <Card>
-                    <Form formScheme={formScheme} btnName='Add Note' onSubmit={this.onNoteSubmitHandler} />
+                    <Form formScheme={ADD_NOTE_FORM_SCHEME} btnName='Add Note' onSubmit={this.onAddNote.bind(this)} />
                 </Card>
             </div>
         )
     }
 }
 
-export default NoteList
+function mapStateToProps(state) {
+    return {
+        noties: state.noties
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchNotes: noteActions.fetchNoties(dispatch),
+        addNote: noteActions.addNote
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NoteList)

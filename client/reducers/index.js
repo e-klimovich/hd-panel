@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import users from './users'
-import noties from './noties'
+import noties from './notes'
 
 const rootReducer = combineReducers({
     users,

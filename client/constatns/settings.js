@@ -18,3 +18,18 @@ export const LOGIN_FORM_SCHEME = [
         required: true
     }
 ]
+
+export const ADD_NOTE_FORM_SCHEME = [
+    {
+        schemeType: 'input',
+        name: 'title',
+        placeholder: 'Note Title',
+        required: true
+    },
+    {
+        schemeType: 'textarea',
+        name: 'content',
+        placeholder: 'Note Content...',
+        required: true
+    }
+]

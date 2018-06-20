@@ -104,7 +104,6 @@ module.exports = () => {
     router.post('/api/add-note', (req, res) => {
 
         let note = new Note({
-            _id: req.body._id,
             title: req.body.title,
             content: req.body.content,
             create_date: new Date(),
@@ -113,10 +112,7 @@ module.exports = () => {
 
         note.save((err) => {
             if(!err) {
-                res.json({
-                    err: false,
-                    message: 'Note successfully created'
-                })
+                res.json({ message: 'Note successfully created' })
             }
         })
     })
@@ -156,14 +152,12 @@ module.exports = () => {
     /**
      * Get notes for current user
      */
-    router.post('/api/note-list', (req, res) => {
+    router.get('/api/get-noties', (req, res) => {
 
         let filterBy = req.user.isAdmin ? {} : {author_id: req.user._id}
 
         Note.find(filterBy, (err, docs) => {
-            res.json({
-                noteList: docs
-            })
+            res.json({ docs })
         })
 
     })
