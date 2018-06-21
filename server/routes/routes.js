@@ -118,18 +118,15 @@ module.exports = () => {
     })
 
     /**
-     * Remove note
+     * Delete note
      */
-    router.post('/api/remove-note', (req, res) => {
+    router.post('/api/delete-note', (req, res) => {
         Note.deleteOne({_id: req.body._id}, (err) => {
-            let message = err
-                ?  'Note has not been removed'
-                :  'Note has been removed'
+            const response = err
+                ?  {message: 'Note has not been removed'}
+                :  {_id: req.body._id, message: 'Note has been removed'}
 
-            res.json({
-                err: err || false,
-                message: message
-            })
+            res.json(response)
         })
     })
 

@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import serialize from 'form-serialize'
+import { connect } from 'react-redux'
 
 import Card from './../../containers/decorators/card.decorator'
 import Textarea from './../Textarea'
 import Button from './../Button'
+
+import * as noteActions from '../../actions/notes'
 
 const Title = styled.div`
     margin-bottom: 15px;
@@ -63,35 +66,14 @@ const EditForm = styled.form`
     text-align: right;
 `
 
-const NoteInner = styled.div`
-    position: relative;
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.65);
-        display: ${props => props.deleted ? 'none' : 'block'}
-    }
-`
-
-export default class Note extends Component {
+class Note extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isNotDeleted: true,
             inEditProcess: false,
             note: this.props.data
         }
-
-        this.removeCurrentNote = this.removeCurrentNote.bind(this)
-        this.onEditNoteHandler = this.onEditNoteHandler.bind(this)
-        this.revertCurrentNote = this.revertCurrentNote.bind(this)
-        this.onNoteSaveHandler = this.onNoteSaveHandler.bind(this)
     }
 
     onEditNoteHandler() {
@@ -124,50 +106,19 @@ export default class Note extends Component {
             })
     }
 
-    removeCurrentNote() {
-        axios.post('/api/remove-note', {_id : this.props.data._id})
-            .then(res => {
-                if(res) {
-                    toast(res.data.message, {
-                        position: toast.POSITION.BOTTOM_RIGHT,
-                        autoClose: 3000
-                    })
+    onDeleteNote(e) {
+        e.preventDefault()
 
-                    this.setState({
-                        isNotDeleted: false
-                    })
-                }
-            })
-    }
-
-    revertCurrentNote() {
-        axios.post('/api/add-note', this.state.note)
-            .then(res => {
-                toast(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                    autoClose: 3000
-                })
-            })
-
-        this.setState({
-            isNotDeleted: true
+        this.props.deleteNote({
+            _id: this.props.data._id
         })
     }
 
     render() {
         const {...data} = this.props.data
 
-        const btnControls = this.state.isNotDeleted
-            ? <BtnControlsWrapper>
-                  <Icon name='pencil-alt' onClick={this.onEditNoteHandler} />
-                  <Icon name='trash-alt' onClick={this.removeCurrentNote} />
-              </BtnControlsWrapper>
-            : <BtnControlsWrapper>
-                  <Icon name='undo' onClick={this.revertCurrentNote} />
-              </BtnControlsWrapper>
-
         const noteContent = this.state.inEditProcess
-            ? <EditForm onSubmit={this.onNoteSaveHandler}>
+            ? <EditForm onSubmit={this.onNoteSaveHandler.bind(this)}>
                   <Textarea name='content' value={this.state.note.content} placeholder='Note Content...' required />
                   <Button type='submit' text='Save Note' />
               </EditForm>
@@ -175,22 +126,40 @@ export default class Note extends Component {
 
         return (
             <Card>
-                <NoteInner deleted={this.state.isNotDeleted}>
-                    <Title>
-                        <h2>
-                            {data.title}
-                            <small>
-                                <Link to={`/profile/${data.author_id}`}>{'all user\'s notes'}</Link>
-                            </small>
-                        </h2>
+                <Title>
+                    <h2>
+                        {data.title}
+                        <small>
+                            <Link to={`/profile/${data.author_id}`}>{'all user\'s notes'}</Link>
+                        </small>
+                    </h2>
 
-                        {btnControls}
-                        
-                    </Title>
-                    {noteContent}
-                    <Date>{data.create_date.split('T')[0]}</Date>
-                </NoteInner>
+                    <BtnControlsWrapper>
+                        <Icon name='pencil-alt' onClick={this.onEditNoteHandler.bind(this)} />
+                        <Icon name='trash-alt' onClick={this.onDeleteNote.bind(this)} />
+                    </BtnControlsWrapper>
+                    
+                </Title>
+                {noteContent}
+                <Date>{data.create_date.split('T')[0]}</Date>
             </Card>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        noties: state.noties
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteNote: (payload) => noteActions.deleteNote(dispatch, payload)
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Note)

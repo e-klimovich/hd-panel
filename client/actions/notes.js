@@ -24,9 +24,8 @@ export const fetchNoties = (dispatch) => {
 }
 
 export const addNote = (dispatch, payload) => {
-    axios.post('/api/add-note', payload)
+    return axios.post('/api/add-note', payload)
             .then(({data}) => {
-                console.log(data.note)
                 dispatch({
                     type: ADD_NOTE,
                     payload: data.note
@@ -37,8 +36,12 @@ export const addNote = (dispatch, payload) => {
 }
 
 export const deleteNote = (dispatch, payload) => {
-    return dispatch({
-        type: DELETE_NOTE,
-        payload
-    })
+    axios.post('/api/delete-note', payload)
+            .then(({data}) => {
+                dispatch({
+                    type: DELETE_NOTE,
+                    payload: data._id
+                })
+                toast('Note was deleted', TOAST_SETTINGS)
+            })
 }
