@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Icon from 'react-fontawesome'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { toast } from 'react-toastify'
 import serialize from 'form-serialize'
 import { connect } from 'react-redux'
 
@@ -71,39 +69,28 @@ class Note extends Component {
         super(props);
 
         this.state = {
-            inEditProcess: false,
-            note: this.props.data
+            inEditProcess: false
         }
     }
 
-    onEditNoteHandler() {
+    toggleEditNoteState() {
         this.setState({
-            inEditProcess: true
+            inEditProcess: !this.state.inEditProcess
         })
     }
 
-    onNoteSaveHandler(e) {
+    onUpdateNote(e) {
         e.preventDefault()
 
-        let data = serialize(e.target, {hash: true})
-        let editedNote = this.state.note
+        const data = serialize(e.target, {hash: true})
+        const editedNote = this.props.data
 
         editedNote.content = data.content
 
-        axios.post('/api/update-note', editedNote)
-            .then(res => {
-                if(res) {
-                    toast(res.data.message, {
-                        position: toast.POSITION.BOTTOM_RIGHT,
-                        autoClose: 3000
-                    })
-
-                    this.setState({
-                        inEditProcess: false,
-                        note: editedNote
-                    })
-                }
-            })
+        this.props.updateNote(editedNote)
+        this.setState({
+            inEditProcess: false
+        })
     }
 
     onDeleteNote(e) {
@@ -118,8 +105,8 @@ class Note extends Component {
         const {...data} = this.props.data
 
         const noteContent = this.state.inEditProcess
-            ? <EditForm onSubmit={this.onNoteSaveHandler.bind(this)}>
-                  <Textarea name='content' value={this.state.note.content} placeholder='Note Content...' required />
+            ? <EditForm onSubmit={this.onUpdateNote.bind(this)}>
+                  <Textarea name='content' defaultValue={data.content} placeholder='Note Content...' required />
                   <Button type='submit' text='Save Note' />
               </EditForm>
             : <Content>{data.content}</Content>
@@ -135,7 +122,7 @@ class Note extends Component {
                     </h2>
 
                     <BtnControlsWrapper>
-                        <Icon name='pencil-alt' onClick={this.onEditNoteHandler.bind(this)} />
+                        <Icon name='pencil-alt' onClick={this.toggleEditNoteState.bind(this)} />
                         <Icon name='trash-alt' onClick={this.onDeleteNote.bind(this)} />
                     </BtnControlsWrapper>
                     
@@ -155,7 +142,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        deleteNote: (payload) => noteActions.deleteNote(dispatch, payload)
+        deleteNote: (payload) => noteActions.deleteNote(dispatch, payload),
+        updateNote: (payload) => noteActions.updateNote(dispatch, payload)
     }
 }
 

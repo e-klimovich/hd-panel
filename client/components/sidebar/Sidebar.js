@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'react-fontawesome'
-import axios from 'axios';
-import { connect } from 'react-redux'
+import axios from 'axios'
+
+import UserList from './UserList'
 
 const SidebarWrapper = styled.div`
     height: 100vh;
@@ -47,35 +48,11 @@ const NavWrapper = styled.div`
     }
 `
 
-// const User = styled.div`
-//     color: #ffffff;
-// `
-
-class Sidebar extends Component {
-    constructor(props) {
-        super(props)
-
-        this.logOutHandler = this.logOutHandler.bind(this)
-        this.getUserList = this.getUserList.bind(this)
-    }
-
+export default class Sidebar extends Component {
     logOutHandler(e) {
         e.preventDefault
 
         axios.get('/logout')
-    }
-
-    getUserList() {
-        axios.post('/api/get-users')
-            .then(res => {
-                if(!res.data.err) {
-                    //console.log(res.data)
-                }
-            })
-    }
-
-    componentDidMount() {
-        this.getUserList()
     }
 
     render() {
@@ -86,21 +63,14 @@ class Sidebar extends Component {
                 </Logo>
 
                 <NavWrapper>
-                    <a href='/logout' onClick={this.logOutHandler}>
+                    <a href='/logout' onClick={this.logOutHandler.bind(this)}>
                         <Icon name='sign-out-alt' />
                         Logout
                     </a>
+                    
+                    <UserList />
                 </NavWrapper>
             </ SidebarWrapper>
         )
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        currentUser: state.currentUser,
-        users: state.users
-    }
-}
-
-export default connect(mapStateToProps)(Sidebar)

@@ -34,14 +34,14 @@ module.exports = () => {
     })
 
     router.post('/api/register', (req, res) => {
-            let userData = {
+            const userData = {
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
                 isAdmin: 0
             }
             
-            let user = new User(userData)
+            const user = new User(userData)
             
             user.save((err) => {
                 if(!err) {
@@ -88,13 +88,11 @@ module.exports = () => {
     /**
      * Userlist
      */
-    router.post('/api/get-users', (req, res) => {
-        User.find({isAdmin: 0}, (err, docs) => {
-            res.json({
-                err: err || false,
-                currentUser: req.user,
-                users: docs
-            })
+    router.get('/api/get-users', (req, res) => {
+        const filterBy = {isAdmin: false}
+
+        User.find(filterBy, (err, docs) => {
+            res.json({ docs })
         })
     })
 
@@ -103,7 +101,7 @@ module.exports = () => {
      */
     router.post('/api/add-note', (req, res) => {
 
-        let note = new Note({
+        const note = new Note({
             title: req.body.title,
             content: req.body.content,
             create_date: new Date(),
@@ -135,7 +133,7 @@ module.exports = () => {
      */
     router.post('/api/update-note', (req, res) => {
         Note.updateOne({_id: req.body._id}, {content: req.body.content}, (err) => {
-            let message = err
+            const message = err
                 ?  'I don\'t know what happened but this note did\'t saved'
                 :  'That\'s OK! Note was saved'
 
@@ -151,7 +149,7 @@ module.exports = () => {
      */
     router.get('/api/get-noties', (req, res) => {
 
-        let filterBy = req.user.isAdmin ? {} : {author_id: req.user._id}
+        const filterBy = req.user.isAdmin ? {} : {author_id: req.user._id}
 
         Note.find(filterBy, (err, docs) => {
             res.json({ docs })

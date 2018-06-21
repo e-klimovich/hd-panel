@@ -45,3 +45,14 @@ export const deleteNote = (dispatch, payload) => {
                 toast('Note was deleted', TOAST_SETTINGS)
             })
 }
+
+export const updateNote = (dispatch, payload) => {
+    axios.post('/api/update-note', payload)
+            .then(({data}) => {
+                dispatch({
+                    type: DELETE_NOTE,
+                    payload: data.doc
+                })
+                toast('Note was updated', TOAST_SETTINGS)
+            })
+}

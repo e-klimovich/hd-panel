@@ -20,19 +20,20 @@ const TextareaField = styled.textarea`
     font-size: 16px;
 `
 
-export default class Input extends Component {
+export default class Textarea extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { name, placeholder, required } = this.props;
+        const { name, placeholder, required, defaultValue } = this.props;
 
         return (
             <FormGroup>
                 <TextareaField 
                     name={name} 
                     placeholder={placeholder} 
+                    defaultValue={defaultValue} 
                     required={required} 
                     autoComplete='off' />
             </FormGroup>
