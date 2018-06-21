@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import serialize from 'form-serialize'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { toast } from 'react-toastify'
 
 import Card from './../../containers/decorators/card.decorator'
 import Form from './../forms/Form'
 import Note from './NoteItem'
 
-import { ADD_NOTE_FORM_SCHEME, TOAST_SETTINGS } from './../../constatns/settings'
+import { ADD_NOTE_FORM_SCHEME } from './../../constatns/settings'
 
 import * as noteActions from '../../actions/notes'
 
@@ -17,13 +15,9 @@ class NoteList extends Component {
         e.preventDefault()
 
         const data = serialize(e.target, {hash: true})
-        
-        return axios.post('/api/add-note', data)
-            .then(data => {
-                console.log(data)
-                this.props.addNote(data)
-                toast('Note was successfully created', TOAST_SETTINGS)
-            })
+
+        this.props.addNote(data)
+        e.target.reset()
     }
 
     componentDidMount() {
@@ -56,7 +50,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         fetchNotes: noteActions.fetchNoties(dispatch),
-        addNote: noteActions.addNote
+        addNote: (payload) =>  noteActions.addNote(dispatch, payload)
     }
 }
 

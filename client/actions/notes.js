@@ -23,11 +23,17 @@ export const fetchNoties = (dispatch) => {
         })
 }
 
-export const addNote = payload => dispatch => {
-    dispatch({
-        type: ADD_NOTE,
-        payload
-    })
+export const addNote = (dispatch, payload) => {
+    axios.post('/api/add-note', payload)
+            .then(({data}) => {
+                console.log(data.note)
+                dispatch({
+                    type: ADD_NOTE,
+                    payload: data.note
+                })
+                toast('Note was created', TOAST_SETTINGS)
+            })
+    
 }
 
 export const deleteNote = (dispatch, payload) => {

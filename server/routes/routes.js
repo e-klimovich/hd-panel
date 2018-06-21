@@ -112,7 +112,7 @@ module.exports = () => {
 
         note.save((err) => {
             if(!err) {
-                res.json({ message: 'Note successfully created' })
+                res.json({ note })
             }
         })
     })
