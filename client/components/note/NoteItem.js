@@ -117,7 +117,7 @@ class Note extends Component {
                     <h2>
                         {data.title}
                         <small>
-                            <Link to={`/profile/${data.author_id}`}>{'all user\'s notes'}</Link>
+                            <Link to={`/dashboard/${data.author_id}`}>{data.author_name}</Link>
                         </small>
                     </h2>
 

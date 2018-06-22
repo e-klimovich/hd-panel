@@ -24,6 +24,7 @@ class UserProfile extends Component {
             <Page>
                 <Sidebar />
                 <ContentWrapper>
+                    <h2>This is user profile</h2>
                     <NoteList />
                 </ContentWrapper>
             </Page>

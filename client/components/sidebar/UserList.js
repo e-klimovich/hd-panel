@@ -21,7 +21,7 @@ class UserList extends Component {
 
     render() {
         const UserList = this.props.users.map((itm, idx) => (
-            <Link to={`/profile/${itm._id}`} key={idx}>
+            <Link to={`/dashboard/${itm._id}`} key={idx}>
                 <Icon name='user-astronaut' />
                 {itm.username}
             </Link>

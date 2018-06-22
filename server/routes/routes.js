@@ -21,6 +21,15 @@ module.exports = () => {
         })
     })
 
+    router.get('/dashboard/:id',
+    ensureLoggedIn('/login'),
+    (req, res) => {
+        res.render('template', {
+            title: `Viewing dashboard as ${req.params.id}`,
+            body: app
+        })
+    })
+
     /**
      * Register users
      */
@@ -105,7 +114,8 @@ module.exports = () => {
             title: req.body.title,
             content: req.body.content,
             create_date: new Date(),
-            author_id: req.body.author_id || req.user._id
+            author_id: req.body.author_id || req.user._id,
+            author_name: req.body.author_name || req.user.username
         })
 
         note.save((err) => {
@@ -160,6 +170,13 @@ module.exports = () => {
     router.get('*', (req, res) => {
         res.status(404).send('&#128169; Error 404: page not found. But unicorn could save you... <a href="/">&#129412;</a>')
     })
+
+    // router.get('*', (req, res) => {
+    //     res.render('template', {
+    //         title: 'Help Desc',
+    //         body: app
+    //     })
+    // })
 
     return router
 
