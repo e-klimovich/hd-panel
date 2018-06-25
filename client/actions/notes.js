@@ -9,8 +9,8 @@ import {
     DELETE_NOTE
 } from './../constatns/actionTypes'
 
-export const fetchNoties = (dispatch) => {
-    return axios.get('/api/get-noties')
+export const fetchNotes = (dispatch) => {
+    return axios.post('/api/get-notes', {data: 'admin'})
         .then(({data}) => {
             dispatch({
                 type: FETCH_NOTIES,

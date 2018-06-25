@@ -1,33 +1,22 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import serialize from 'form-serialize'
-import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import Page from './decorators/page.decorator'
 import Card from './decorators/card.decorator'
 import Form from './../components/forms/Form'
 
-import {
-    TOAST_SETTINGS,
-    LOGIN_FORM_SCHEME
-} from '../constatns/settings'
+import * as userAuthActions from './../actions/authUser'
+import { LOGIN_FORM_SCHEME } from '../constatns/settings'
 
-export default class Login extends Component {
-    userLogin(e) {
+class Login extends Component {
+    onloginUser(e) {
         e.preventDefault()
-
-        const { history } = this.props
+        
         const data = serialize(e.target, {hash: true})
 
-        axios.post('/api/login', data)
-            .then(res => {
-                if(res.data.user) {
-                    history.push('/')
-                } else {
-                    toast('Incorrect login or password', TOAST_SETTINGS)
-                }
-            })
+        this.props.loginUser(data)
     }
 
     render() {
@@ -35,7 +24,7 @@ export default class Login extends Component {
             <Page>
                 <Card>
                     <h2>User Sign In</h2>
-                    <Form formScheme={LOGIN_FORM_SCHEME} btnName='Login' onSubmit={this.userLogin.bind(this)} />
+                    <Form formScheme={LOGIN_FORM_SCHEME} btnName='Login' onSubmit={this.onloginUser.bind(this)} />
                     <div className='form-separator'>or</div>
                     <Link to='/register'>Register New User</Link>
                 </Card>
@@ -43,3 +32,12 @@ export default class Login extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    loginUser: (payload) => userAuthActions.loginUser(dispatch, payload)
+})
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Login)

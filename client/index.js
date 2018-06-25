@@ -31,7 +31,7 @@ const store = createStore(
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} 
         render={props => 
-            store.getState().authUser.length 
+            store.getState().authUser.isAuth === true 
                 ? <Component {...props} />
                 : <Redirect from={props.loction} to='/login' />
         } />

@@ -4,7 +4,7 @@ import {
 } from '../constatns/actionTypes'
 
 const initialState = {
-    isAuth: true,
+    isAuth: false,
     user: {}
 }
 
@@ -15,7 +15,7 @@ export default function authUser(state = initialState, action) {
         case LOGIN_USER:
             return {
                 isAuth: true,
-                user: { payload }
+                user: payload
             }
 
         case LOGOUT_USER:

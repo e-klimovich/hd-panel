@@ -6,7 +6,7 @@ import { TOAST_SETTINGS } from './../constatns/settings'
 import { FETCH_USERS } from './../constatns/actionTypes'
 
 export const fetchUsers = (dispatch) => {
-    return axios.get('/api/get-users')
+    return axios.post('/api/get-users')
         .then(({data}) => {
             dispatch({
                 type: FETCH_USERS,

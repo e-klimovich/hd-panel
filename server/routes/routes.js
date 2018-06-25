@@ -44,11 +44,14 @@ module.exports = () => {
     )
 
     router.post('/api/login',
+    // pasport authenticate
     passport.authenticate('local', {
         failureRedirect: '/login'
     }),
+    // success authenticate response
     (req, res) => {
         res.json({
+            status: true,
             user: {
                 _id: req.user.id,
                 username: req.user.username,
@@ -60,7 +63,7 @@ module.exports = () => {
     /**
      * Userlist
      */
-    router.get('/api/get-users', (req, res) => {
+    router.post('/api/get-users', (req, res) => {
         const filterBy = {isAdmin: false}
 
         User.find(filterBy, (err, docs) => {
@@ -120,7 +123,7 @@ module.exports = () => {
     /**
      * Get notes for current user
      */
-    router.get('/api/get-noties', (req, res) => {
+    router.post('/api/get-notes', (req, res) => {
 
         const filterBy = req.user.isAdmin ? {} : {author_id: req.user._id}
 

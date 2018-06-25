@@ -25,8 +25,8 @@ class NoteList extends Component {
     }
 
     render() {
-        const noteItemList = this.props.noties
-            ? this.props.noties.map((itm, idx) => <Note key={idx} data={itm}/>)
+        const noteItemList = this.props.notes
+            ? this.props.notes.map((itm, idx) => <Note key={idx} data={itm}/>)
             : <Card>There are no results yet</Card>
 
         return(
@@ -43,13 +43,13 @@ class NoteList extends Component {
 
 function mapStateToProps(state) {
     return {
-        noties: state.noties
+        notes: state.noties
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchNotes: noteActions.fetchNoties(dispatch),
+        fetchNotes: noteActions.fetchNotes(dispatch),
         addNote: (payload) =>  noteActions.addNote(dispatch, payload)
     }
 }

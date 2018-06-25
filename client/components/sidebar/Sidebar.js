@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'react-fontawesome'
 import axios from 'axios'
+import { connect } from 'react-redux'
 
 import UserList from './UserList'
 
@@ -48,7 +49,7 @@ const NavWrapper = styled.div`
     }
 `
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
     logOutHandler(e) {
         e.preventDefault
 
@@ -66,9 +67,20 @@ export default class Sidebar extends Component {
                     <Link to='/'><Icon name='edit' />My notes</Link>
                     <Link to='/edit-profile'><Icon name='user-edit' />My profile</Link>
                     <Link to='/logout'><Icon name='sign-out-alt' />Logout</Link>
-                    <UserList />
+
+                    { this.props.user.isAdmin === true ? <UserList /> : null }
+                    
                 </NavWrapper>
             </ SidebarWrapper>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    user: state.authUser.user
+})
+
+export default connect(
+    mapStateToProps,
+    null
+)(Sidebar)
