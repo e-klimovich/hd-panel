@@ -5,7 +5,7 @@ import users from './users'
 import noties from './notes'
 
 const rootReducer = combineReducers({
-    routing: routerReducer,
+    router: routerReducer,
     users,
     noties
 })

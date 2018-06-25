@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { hot } from 'react-hot-loader'
 
-import Page from './decorators/page.decorator'
-import Sidebar from './../components/sidebar/Sidebar'
-import NoteList from './../components/note/NoteList'
+import Page from './page.decorator'
+import Sidebar from './../../components/sidebar/Sidebar'
 
 const ContentWrapper = styled.div`
     width: calc(100% - 300px);
@@ -14,22 +12,15 @@ const ContentWrapper = styled.div`
     overflow-y: auto;
 `
 
-class UserProfile extends Component {
-    constructor(props) {
-        super(props)
-    }
-
+export default class Home extends Component {
     render() {
         return (
             <Page>
                 <Sidebar />
                 <ContentWrapper>
-                    <h2>This is user profile</h2>
-                    <NoteList />
+                    {this.props.children}
                 </ContentWrapper>
             </Page>
         )
     }
 }
-
-export default hot(module)(UserProfile)

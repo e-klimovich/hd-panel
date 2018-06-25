@@ -1,31 +1,45 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Route, Switch } from 'react-router-dom'
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import './base.scss'
 import rootReducer from './reducers/index'
 
-import Dashboard from './containers/Dashboard'
+import Home from './containers/decorators/home.decorator'
 import Register from './containers/Register'
 import Login from './containers/Login'
-import UserProfile from './containers/UserProfile'
+import Notes from './containers/Notes'
+
+const history = createHistory()
+
+const middlewares = [
+    routerMiddleware(history)
+]
 
 const store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    undefined,
+    composeWithDevTools(
+        applyMiddleware(...middlewares)
+    )
 )
 
 render((
     <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
             <Switch>
-                <Route path='/register' component={Register} />
+                <Home>
+                    <Route exact path='/' component={Notes} />
+                    <Route path='/edit-profile' component={Notes} />
+                </Home>
                 <Route path='/login' component={Login} />
-                <Route exact path='/' component={Dashboard} />
-                <Route path='/dashboard/:id' component={UserProfile}></Route>
+                <Route path='/register' component={Register} />
             </Switch>
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>
 ), document.getElementById('app'))
