@@ -4,6 +4,8 @@ import { hot } from 'react-hot-loader'
 
 import NoteList from './../components/note/NoteList'
 
+import Wrapper from './decorators/home.decorator'
+
 const NoteForm = styled.div`
     form {
         width: 100%;
@@ -14,9 +16,11 @@ const NoteForm = styled.div`
 class Dashboard extends Component {
     render() {
         return (
-            <NoteForm>
-                <NoteList />
-            </NoteForm>
+            <Wrapper>
+                <NoteForm>
+                    <NoteList />
+                </NoteForm>
+            </Wrapper>
         )
     }
 }
