@@ -7,11 +7,11 @@ import Icon from 'react-fontawesome'
 import * as userActions from './../../actions/users'
 
 const ListTitle = styled.div`
-    font-size: 26px;
+    font-size: 24px;
     color: #ffffff;
-    margin-top: 15px;
+    margin-top: 30px;
     margin-bottom: 15px;
-    text-align: center;
+    padding-left: 15px;
 `
 
 class UserList extends Component {
@@ -29,7 +29,7 @@ class UserList extends Component {
 
         return(
             <div>
-                <ListTitle>Users</ListTitle>
+                <ListTitle>View Users</ListTitle>
                 {UserList}
             </div>
         )

@@ -1,7 +1,7 @@
 const express = require('express')
 const passport = require('passport')
-const ensureLoggedIn = require('connect-ensure-login/lib/ensureLoggedIn')
-const ensureLoggedOut = require('connect-ensure-login/lib/ensureLoggedOut')
+// const ensureLoggedIn = require('connect-ensure-login/lib/ensureLoggedIn')
+// const ensureLoggedOut = require('connect-ensure-login/lib/ensureLoggedOut')
 
 const User = require('../models/user.model')
 const Note = require('../models/note.model')
@@ -12,36 +12,19 @@ const app = 'Loading...'
 
 module.exports = () => {
 
-    router.get('/',
-    ensureLoggedIn('/login'),
-    (req, res) => {
+    /**
+     * Routing
+     */
+    router.get('*', (req, res) => {
         res.render('template', {
-            title: `Dashboard for ${req.user.username}`,
-            body: app
-        })
-    })
-
-    router.get('/dashboard/:id',
-    ensureLoggedIn('/login'),
-    (req, res) => {
-        res.render('template', {
-            title: `Viewing dashboard as ${req.params.id}`,
+            title: 'Help Desc',
             body: app
         })
     })
 
     /**
-     * Register users
+     * API
      */
-    router.get('/register',
-    ensureLoggedOut('/'),
-    (req, res) => {
-        res.render('template', {
-            title: 'Register User',
-            body: app
-        })
-    })
-
     router.post('/api/register', (req, res) => {
             const userData = {
                 username: req.body.username,
@@ -60,18 +43,6 @@ module.exports = () => {
         }
     )
 
-    /**
-     * Login users
-     */
-    router.get('/login',
-        ensureLoggedOut('/'),
-        (req, res) => {
-            res.render('template', {
-                title: 'Login User',
-                body: app
-            })
-    })
-
     router.post('/api/login',
     passport.authenticate('local', {
         failureRedirect: '/login'
@@ -84,14 +55,6 @@ module.exports = () => {
                 isAdmin: req.user.isAdmin,
             }
         })
-    })
-
-    /**
-     * Logout
-     */
-    router.get('/logout', (req, res) => {
-        req.logout()
-        res.redirect('/login')
     })
 
     /**
@@ -166,17 +129,6 @@ module.exports = () => {
         })
 
     })
-
-    router.get('*', (req, res) => {
-        res.status(404).send('&#128169; Error 404: page not found. But unicorn could save you... <a href="/">&#129412;</a>')
-    })
-
-    // router.get('*', (req, res) => {
-    //     res.render('template', {
-    //         title: 'Help Desc',
-    //         body: app
-    //     })
-    // })
 
     return router
 

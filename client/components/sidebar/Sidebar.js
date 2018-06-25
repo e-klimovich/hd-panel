@@ -63,11 +63,9 @@ export default class Sidebar extends Component {
                 </Logo>
 
                 <NavWrapper>
-                    <a href='/logout' onClick={this.logOutHandler.bind(this)}>
-                        <Icon name='sign-out-alt' />
-                        Logout
-                    </a>
-                    
+                    <Link to='/'><Icon name='edit' />My notes</Link>
+                    <Link to='/edit-profile'><Icon name='user-edit' />My profile</Link>
+                    <Link to='/logout'><Icon name='sign-out-alt' />Logout</Link>
                     <UserList />
                 </NavWrapper>
             </ SidebarWrapper>
