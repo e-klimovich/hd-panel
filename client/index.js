@@ -13,6 +13,8 @@ import rootReducer from './reducers/index'
 import Register from './containers/Register'
 import Login from './containers/Login'
 import Notes from './containers/Notes'
+import EditeProfile from './containers/EditeProfile'
+import UserDashboard from './containers/UserDashboard'
 
 const history = createHistory()
 
@@ -37,6 +39,15 @@ const PrivateRoute = ({component: Component, ...rest}) => (
         } />
 )
 
+const AdminOnlyRoute = ({component: Component, ...rest}) => (
+    <Route {...rest} 
+        render={props => 
+            store.getState().authUser.user.isAdmin === true 
+                ? <Component {...props} />
+                : <Redirect from={props.loction} to='/' />
+        } />
+)
+
 render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
@@ -44,6 +55,8 @@ render((
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
                 <PrivateRoute exact path='/' component={Notes} />
+                <Route path='/edit-profile' component={EditeProfile} />
+                <AdminOnlyRoute path='/dashboard/:id' component={UserDashboard} />
             </Switch>
         </ConnectedRouter>
     </Provider>

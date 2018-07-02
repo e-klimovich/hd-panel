@@ -25,7 +25,7 @@ export default class Input extends Component {
     }
 
     render() {
-        const { name, placeholder, required } = this.props;
+        const { name, placeholder, required, defaultValue } = this.props;
         const type = this.props.type || 'text';
 
         return (
@@ -34,6 +34,7 @@ export default class Input extends Component {
                     type={type} 
                     name={name} 
                     placeholder={placeholder} 
+                    defaultValue={defaultValue} 
                     required={required} 
                     autoComplete='off' />
             </FormGroup>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import Page from './decorators/page.decorator'
 import Card from './decorators/card.decorator'
-import Form from './../components/forms/Form'
+import Form from './../components/Form'
 
 import * as userAuthActions from './../actions/authUser'
 import { LOGIN_FORM_SCHEME } from '../constatns/settings'

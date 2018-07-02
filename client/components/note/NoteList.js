@@ -3,7 +3,7 @@ import serialize from 'form-serialize'
 import { connect } from 'react-redux'
 
 import Card from './../../containers/decorators/card.decorator'
-import Form from './../forms/Form'
+import Form from './../Form'
 import Note from './NoteItem'
 
 import { ADD_NOTE_FORM_SCHEME } from './../../constatns/settings'
