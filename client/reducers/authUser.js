@@ -1,6 +1,6 @@
 import {
     LOGIN_USER,
-    LOGOUT_USER
+    UPDATE_USER
 } from '../constatns/actionTypes'
 
 const initialState = {
@@ -18,8 +18,11 @@ export default function authUser(state = initialState, action) {
                 user: payload
             }
 
-        case LOGOUT_USER:
-            return initialState
+        case UPDATE_USER:
+            return {
+                isAuth: true,
+                user: payload
+            }
 
         default: return state
     }

@@ -55,8 +55,30 @@ module.exports = () => {
             user: {
                 _id: req.user.id,
                 username: req.user.username,
+                email: req.user.email,
                 isAdmin: req.user.isAdmin,
             }
+        })
+    })
+
+    router.post('/api/update-profile', (req, res) => {
+        User.updateOne({_id: req.body._id}, 
+            {username: req.body.username, email: req.body.email}, 
+            (err) => {
+            const message = err
+                ?  'I don\'t know what happened but user wasn\'t updated'
+                :  'That\'s OK! User was updated'
+
+            res.json({
+                status: true,
+                message,
+                user: {
+                    _id: req.user.id,
+                    username: req.body.username,
+                    email: req.body.email,
+                    isAdmin: req.user.isAdmin
+                }
+            })
         })
     })
 

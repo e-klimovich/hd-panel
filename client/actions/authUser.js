@@ -6,7 +6,7 @@ import { TOAST_SETTINGS } from './../constatns/settings'
 
 import {
     LOGIN_USER,
-    // LOGOUT_USER
+    UPDATE_USER
 } from './../constatns/actionTypes'
 
 export const loginUser = (dispatch, payload) => {
@@ -20,6 +20,21 @@ export const loginUser = (dispatch, payload) => {
                     dispatch(push('/'))
                 } else {
                     toast('Incorrect login or password', TOAST_SETTINGS)
+                }
+            })
+    
+}
+
+export const updateUser = (dispatch, payload) => {
+    return axios.post('/api/update-profile', payload)
+            .then(({data}) => {
+                if(data.status) {
+                    dispatch({
+                        type: UPDATE_USER,
+                        payload: data.user
+                    })
+                } else {
+                    toast('User profile updated', data.message)
                 }
             })
     
