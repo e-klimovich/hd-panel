@@ -25,7 +25,7 @@ class NoteList extends Component {
     }
 
     render() {
-        const noteItemList = this.props.notes
+        const noteItemList = this.props.notes.length
             ? this.props.notes.map((itm, idx) => <Note key={idx} data={itm}/>)
             : <Card>There are no results yet</Card>
 

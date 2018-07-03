@@ -9,8 +9,8 @@ export const fetchUsers = (dispatch) => {
     return axios.post('/api/get-users')
         .then(({data}) => {
             dispatch({
-                type: FETCH_USERS,
-                payload: data.docs
+                type: FETCH_USERS,  
+                payload: data.users
             })
         })
         .catch((err) => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader'
+// import { hot } from 'react-hot-loader'
 import styled from 'styled-components'
 
 import Wrapper from './decorators/home.decorator'
@@ -28,4 +28,4 @@ class UserDashboard extends Component {
     }
 }
 
-export default hot(module)(UserDashboard)
+export default UserDashboard

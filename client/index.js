@@ -39,15 +39,6 @@ const PrivateRoute = ({component: Component, ...rest}) => (
         } />
 )
 
-const AdminOnlyRoute = ({component: Component, ...rest}) => (
-    <Route {...rest} 
-        render={props => 
-            store.getState().authUser.user.isAdmin === true 
-                ? <Component {...props} />
-                : <Redirect from={props.loction} to='/' />
-        } />
-)
-
 render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
@@ -56,7 +47,7 @@ render((
                 <Route path='/register' component={Register} />
                 <PrivateRoute exact path='/' component={Notes} />
                 <Route path='/edit-profile' component={EditeProfile} />
-                <AdminOnlyRoute path='/dashboard/:id' component={UserDashboard} />
+                <Route path='/dashboard/:id' component={UserDashboard} />
             </Switch>
         </ConnectedRouter>
     </Provider>

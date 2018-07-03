@@ -33,9 +33,9 @@ export const updateUser = (dispatch, payload) => {
                         type: UPDATE_CURRENT_USER,
                         payload: data.user
                     })
-                } else {
-                    toast('User profile updated', data.message)
                 }
+
+                toast(data.message, TOAST_SETTINGS)
             })
     
 }

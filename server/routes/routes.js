@@ -88,8 +88,14 @@ module.exports = () => {
     router.post('/api/get-users', (req, res) => {
         const filterBy = {isAdmin: false}
 
-        User.find(filterBy, (err, docs) => {
-            res.json({ docs })
+        User.find(filterBy, (err, users) => {
+            let newArray = users.map((user) => ({
+                _id: user._id,
+                username: user.username,
+                email: user.email
+            }))
+
+            res.json({ users: newArray})
         })
     })
 
