@@ -2,12 +2,12 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { push } from 'react-router-redux'
 
-import { TOAST_SETTINGS } from './../constatns/settings'
+import { TOAST_SETTINGS } from './../constatns/settings.constants'
 
 import {
     LOGIN_USER,
-    UPDATE_USER
-} from './../constatns/actionTypes'
+    UPDATE_CURRENT_USER
+} from './../constatns/action.constants'
 
 export const loginUser = (dispatch, payload) => {
     return axios.post('/api/login', payload)
@@ -30,7 +30,7 @@ export const updateUser = (dispatch, payload) => {
             .then(({data}) => {
                 if(data.status) {
                     dispatch({
-                        type: UPDATE_USER,
+                        type: UPDATE_CURRENT_USER,
                         payload: data.user
                     })
                 } else {

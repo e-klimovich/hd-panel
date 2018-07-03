@@ -8,7 +8,7 @@ import Card from './decorators/card.decorator'
 import Form from './../components/Form'
 
 import * as userAuthActions from './../actions/authUser'
-import { LOGIN_FORM_SCHEME } from '../constatns/settings'
+import { LOGIN_FORM_SCHEME } from '../constatns/settings.constants'
 
 class Login extends Component {
     onloginUser(e) {

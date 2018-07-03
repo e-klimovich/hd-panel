@@ -3,7 +3,7 @@ import {
     ADD_NOTE,
     DELETE_NOTE,
     UPDATE_NOTE
-} from './../constatns/actionTypes'
+} from './../constatns/action.constants'
 
 const initialState = []
 

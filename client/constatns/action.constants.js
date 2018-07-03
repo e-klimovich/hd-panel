@@ -6,7 +6,8 @@ export const UPDATE_NOTE = 'UPDATE_NOTE'
 
 // users
 export const FETCH_USERS = 'FETCH_USERS'
+export const UPDATE_SELECTED_USER = 'UPDATE_SELECTED_USER'
 
 // current user
 export const LOGIN_USER = 'LOGIN_USER'
-export const UPDATE_USER = 'UPDATE_USER'
+export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER'

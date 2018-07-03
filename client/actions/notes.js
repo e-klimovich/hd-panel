@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-import { TOAST_SETTINGS } from './../constatns/settings'
+import { TOAST_SETTINGS } from './../constatns/settings.constants'
 
 import {
     FETCH_NOTIES,
     ADD_NOTE,
     DELETE_NOTE
-} from './../constatns/actionTypes'
+} from './../constatns/action.constants'
 
 export const fetchNotes = (dispatch) => {
     return axios.post('/api/get-notes', {data: 'admin'})

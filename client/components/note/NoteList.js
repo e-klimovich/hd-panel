@@ -6,7 +6,7 @@ import Card from './../../containers/decorators/card.decorator'
 import Form from './../Form'
 import Note from './NoteItem'
 
-import { ADD_NOTE_FORM_SCHEME } from './../../constatns/settings'
+import { ADD_NOTE_FORM_SCHEME } from './../../constatns/settings.constants'
 
 import * as noteActions from '../../actions/notes'
 

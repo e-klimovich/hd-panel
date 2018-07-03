@@ -1,7 +1,7 @@
 import {
     LOGIN_USER,
-    UPDATE_USER
-} from '../constatns/actionTypes'
+    UPDATE_CURRENT_USER
+} from '../constatns/action.constants'
 
 const initialState = {
     isAuth: false,
@@ -18,7 +18,7 @@ export default function authUser(state = initialState, action) {
                 user: payload
             }
 
-        case UPDATE_USER:
+        case UPDATE_CURRENT_USER:
             return {
                 isAuth: true,
                 user: payload

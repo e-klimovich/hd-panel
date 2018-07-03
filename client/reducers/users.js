@@ -1,6 +1,6 @@
 import {
     FETCH_USERS
-} from './../constatns/actionTypes'
+} from './../constatns/action.constants'
 
 const initialState = []
 
